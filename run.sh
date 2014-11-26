@@ -10,7 +10,7 @@ jar -xf ./WEB-INF/lib/usergrid-config-1.0.0.jar
 # make changes
 
 if [[ ! -z "$CASSANDRA_URL" ]]; then
-   sed "s/cassandra.url=.*/aaa=$CASSANDRA_URL/g" usergrid-default.properties
+   sed -i "s/cassandra.url=.*/cassandra.url=$CASSANDRA_URL/g" ./usergrid-default.properties
 fi
 
 # make jar of updated usergrid properties
