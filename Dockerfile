@@ -34,8 +34,11 @@ mkdir -p /usr/share/tomcat7/temp
 
 #
 # Deploy WAR
-#
-ADD ROOT.war /usr/share/tomcat7/webapps/ROOT.war
+
+RUN mkdir /tmp/ROOT
+ADD ROOT.war /tmp/ROOT
+
+# ADD ROOT.war /usr/share/tomcat7/webapps/ROOT.war
 
 RUN ln -s /usr/share/tomcat7/webapps/ /etc/tomcat7/webapps
 
