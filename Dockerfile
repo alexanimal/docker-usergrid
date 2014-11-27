@@ -35,12 +35,10 @@ mkdir -p /usr/share/tomcat7/temp
 #
 # Deploy WAR
 
-RUN mkdir /tmp/ROOT
-ADD ROOT.war /tmp/ROOT/ROOT.war
+RUN mkdir /usergrid/ROOT
+ADD ROOT.war /usergrid/ROOT/ROOT.war
 
 # ADD ROOT.war /usr/share/tomcat7/webapps/ROOT.war
-
-RUN ln -s /usr/share/tomcat7/webapps/ /etc/tomcat7/webapps
 
 #
 # Port to expose (default for tomcat: 8080)

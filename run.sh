@@ -3,9 +3,11 @@
 # Based on https://github.com/tutumcloud/tutum-docker-tomcat
 #
 
-echo "Adding ROOT.war to /tmp"
-pushd /tmp/ROOT
+
+echo "Adding ROOT.war to /usergrid"
+pushd /usergrid/ROOT
 jar xvf ./ROOT.war
+rm ROOT.war
 jar -xf ./WEB-INF/lib/usergrid-config-1.0.0.jar
 
 # make changes
@@ -26,13 +28,15 @@ cd ../
 echo "Making ROOT.war"
 jar -cvf ROOT.war ROOT/*
 
-rm -R ROOT/*
-rmdir ROOT
+# rm -R ROOT/*
+# rmdir ROOT
 
 echo "Adding ROOT.war to tomcat webapps"
 cp ROOT.war /usr/share/tomcat7/webapps/ROOT.war
 
 popd
+
+ln -s /usr/share/tomcat7/webapps/ /etc/tomcat7/webapps
 
 if [ ! -f ${TOMCAT_CONFIGURATION_FLAG} ]; then
     /usergrid/create_tomcat_admin_user.sh
