@@ -22,17 +22,18 @@ jar cf usergrid-config-1.0.0.jar usergrid-default.properties
 
 cp usergrid-config-1.0.0.jar ./WEB-INF/lib/
 rm usergrid-config-1.0.0.jar usergrid-default.properties
-cd ../
 
 # make war
 echo "Making ROOT.war"
-jar -cvf ROOT.war ROOT/*
+jar -cvf ROOT.war .
+mv ROOT.war ../
+cd ../
 
-# rm -R ROOT/*
-# rmdir ROOT
+rm -R ROOT/*
+rmdir ROOT
 
 echo "Adding ROOT.war to tomcat webapps"
-cp ROOT.war /usr/share/tomcat7/webapps/ROOT.war
+cp ROOT.war /usr/share/tomcat7/webapps
 
 popd
 
