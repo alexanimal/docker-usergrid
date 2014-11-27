@@ -3,6 +3,7 @@
 # Based on https://github.com/tutumcloud/tutum-docker-tomcat
 #
 
+echo "Adding ROOT.war to /tmp"
 pushd /tmp/ROOT
 jar xvf ./ROOT.war
 jar -xf ./WEB-INF/lib/usergrid-config-1.0.0.jar
@@ -10,6 +11,7 @@ jar -xf ./WEB-INF/lib/usergrid-config-1.0.0.jar
 # make changes
 
 if [[ ! -z "$CASSANDRA_URL" ]]; then
+   echo "Setting Cassandra host"
    sed -i "s/cassandra.url=.*/cassandra.url=$CASSANDRA_URL/g" ./usergrid-default.properties
 fi
 
@@ -21,10 +23,13 @@ rm usergrid-config-1.0.0.jar usergrid-default.properties
 cd ../
 
 # make war
+echo "Making ROOT.war"
 jar -cvf ROOT.war ROOT/*
 
 rm -R ROOT/*
 rmdir ROOT
+
+echo "Adding ROOT.war to tomcat webapps"
 cp ROOT.war /usr/share/tomcat7/webapps/ROOT.war
 
 popd
