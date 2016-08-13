@@ -9,11 +9,20 @@ FROM ubuntu
 MAINTAINER Gabor Wnuk <gabor.wnuk@me.com>
 
 ENV TOMCAT_CONFIGURATION_FLAG /usergrid/.tomcat_admin_created
-
+ENV DEBIAN_FRONTEND noninteractive
 RUN mkdir /usergrid
 WORKDIR /usergrid
+RUN apt-get update
+RUN apt-get -y install software-properties-common
+RUN add-apt-repository ppa:openjdk-r/ppa
 
-RUN apt-get update ; apt-get install -y wget pwgen openjdk-7-jdk tomcat7
+###### UNCOMMENT IF YOU NEED ORACLE JAVA 8
+#RUN add-apt-repository ppa:webupd8team/java
+#RUN apt-get update
+#RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
+#RUN apt-get install -y oracle-java8-installer
+
+RUN apt-get update; apt-get install -y wget pwgen openjdk-7-jdk tomcat7;
 
 #
 # Configure basic stuff, nothing important.
